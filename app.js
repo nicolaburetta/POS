@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var dishes = require('./routes/dishes');
+var types = require('./routes/types');
 
 var app = express();
 
@@ -19,10 +20,14 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '/public')));
+app.use('/js', express.static(__dirname + '/client/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
+app.use('/js', express.static(__dirname + '/client/node_modules/jquery/dist')); // redirect JS jQuery
+app.use('/css', express.static(__dirname + '/client/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
 
 app.use('/', index);
 app.use('/dishes', dishes);
+app.use('/dishes-types', types);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

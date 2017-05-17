@@ -5,8 +5,7 @@ var router = express.Router();
 /* GET users listing. */
 router.get('/', function(req, res, next) {
 
-  var typeid = req.param('typeid');
-  query('SELECT * FROM dishes WHERE id_type=' + typeid, res);
+  query('SELECT * FROM dishes_types', res);
 
 });
 
