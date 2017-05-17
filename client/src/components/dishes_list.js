@@ -20,7 +20,7 @@ export default class DishesList extends Component {
 
   render() {
     return (
-      <div className="dishes-list">
+      <div className="panel-group dishes-list">
         { this.renderList() }
       </div>
     );

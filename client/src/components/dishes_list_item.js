@@ -24,7 +24,6 @@ class DishesListItem extends Component {
     const collapse = `collapse${this.props.typeId}`;
     const id_collapse = `#${collapse}`;
     return (
-      <div className="panel-group">
         <div className="panel panel-default">
           <div className="panel-heading">
             <h4 className="panel-title">
@@ -37,7 +36,6 @@ class DishesListItem extends Component {
             </ul>
           </div>
         </div>
-      </div>
     );
   }
 }
