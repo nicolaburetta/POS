@@ -9,6 +9,7 @@
 
 # production
 /client/build
+/npm-debug.log
 
 # misc
 /client/.DS_Store
