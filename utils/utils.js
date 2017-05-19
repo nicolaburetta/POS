@@ -12,7 +12,7 @@ function isString(s) {
 
 function isStringArray(array) {
 	var index = 0;
-	var check = true;
+	var check = Array.isArray(array);
 
 	while (index < array.length && check) {
 		check = isString(array[index]);
@@ -35,6 +35,37 @@ function isIpAddress(address) {
     parseInt(address.split('.')[2]) < 256 &&
     parseInt(address.split('.')[3]) < 256
   );
+}
+
+function isUndefined(something) {
+  return typeof something == 'undefined';
+}
+
+function isOrderItem(item) {
+  return !isUndefined(item.id)
+      && !isUndefined(item.name)
+      && !isUndefined(item.price)
+      && !isUndefined(item.quantity)
+      && !isUndefined(item.add)
+      && !isUndefined(item.remove)
+      && isInt(item.id) && item.id > 0
+			&& isString(item.name)
+			&& (isInt(item.price) || isFloat(item.price))
+			&& isInt(item.quantity) && item.quantity > 0
+			&& isStringArray(item.add)
+			&& isStringArray(item.remove);
+}
+
+function isOrderItemArray(array) {
+  var index = 0;
+  var check = Array.isArray(array);
+
+  while (index < array.length && check) {
+    check = isOrderItem(array[index]);
+    index++;
+  }
+
+  return check;
 }
 
 // return the ready-to-print number
@@ -62,6 +93,9 @@ module.exports = {
   isInt: isInt,
   isFloat: isFloat,
   isString: isString,
+  isUndefined: isUndefined,
+  isOrderItem: isOrderItem,
+  isOrderItemArray: isOrderItemArray,
   formatNumber: formatNumber,
   isStringArray: isStringArray,
   isIpAddress: isIpAddress,

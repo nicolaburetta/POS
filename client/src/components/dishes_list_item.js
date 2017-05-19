@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { selectDish } from '../actions/index';
 
 class DishesListItem extends Component {
-  state = { dishes: [] };
+  constructor(props) {
+    super(props);
+    this.state = {
+      dishes: [],
+      dishSelected: {}
+    };
+
+    this.onItemSelected = this.onItemSelected.bind(this);
+  }
 
   componentDidMount() {
     const url = `/dishes?typeid=${this.props.typeId}`;
@@ -10,10 +21,18 @@ class DishesListItem extends Component {
       .then(dishes => this.setState({ dishes }));
   }
 
+  onItemSelected(dish) {
+    this.props.selectDish(dish);
+  }
+
   renderList() {
     return this.state.dishes.map(dish => {
       return (
-        <li key={ dish.id } className="list-group-item">
+        <li
+          className="list-group-item cursor-pointer"
+          key={ dish.id }
+          value={dish.name}
+          onClick={() => this.onItemSelected(dish)}>
           { dish.name }
         </li>
       );
@@ -24,20 +43,27 @@ class DishesListItem extends Component {
     const collapse = `collapse${this.props.typeId}`;
     const id_collapse = `#${collapse}`;
     return (
-        <div className="panel panel-default">
-          <div className="panel-heading">
-            <h4 className="panel-title">
-              <a data-toggle="collapse" href={id_collapse}>{this.props.typeName}</a>
-            </h4>
-          </div>
-          <div id={collapse} className="panel-collapse collapse">
-            <ul className="list-group">
-              { this.renderList() }
-            </ul>
-          </div>
+      <div className="panel panel-default">
+        <div className="panel-heading cursor-pointer"
+          data-toggle="collapse"
+          data-target={id_collapse}
+          data-parent="#dishes-list">
+          <h4 className="panel-title">
+            {this.props.typeName}
+          </h4>
         </div>
+        <div id={collapse} className="panel-collapse collapse">
+          <ul className="list-group">
+            { this.renderList() }
+          </ul>
+        </div>
+      </div>
     );
   }
 }
 
-export default DishesListItem;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ selectDish }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(DishesListItem);

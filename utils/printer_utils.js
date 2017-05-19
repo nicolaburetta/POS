@@ -1,5 +1,6 @@
 var net = require('net');
 var utils = require('./utils.js');
+var Order = require('../models/order_model.js');
 
 // printer props
 const FIRST_PRINTER_ADDRESS = 120;
@@ -134,26 +135,56 @@ var check_printer = function(host, port, _callback) {
 /** formatText
  *
  * @param list [{
+ *    id:number,
  * 		name:string,
  * 		price:number,
+ *    quantity:number,
  * 		add:string[],
  * 		remove:string[]
- * 	}]
+ * 	}],
+ *  isVideoPreview:boolean
  * @return text:string (the formatted text ready to print)
  */
-function formatText(list) {
+function formatText(list, isVideoPreview) {
 	var n_items = list.length;
 
-	var text = commands.NEW_LINE;
+  var text = commands.NEW_LINE;
+  var total = 0;
 
   // each object in the array
 	for (var i = 0; i < n_items; i++) {
 
 		var line = '';
 		var item = list[i];
-		var item_length = list[i].name.length;
 
-		var max_char = item.price < 10 ? commands.DEFAULT_MAX_CHAR + 1 : commands.DEFAULT_MAX_CHAR;
+    // modify item name
+    var item_length = 0;
+    var original_name = item.name;
+    var temp_name = original_name;
+    if (item.quantity > 9) {
+      item_length = item.name.length + 5;
+      temp_name = item.quantity + ' x ' + item.name;
+    } else if (item.quantity > 1) {
+      item_length = list[i].name.length + 4;
+      temp_name = item.quantity + ' x ' + item.name;
+    } else item_length = item.name.length;
+
+    if (isVideoPreview) {
+      item.name = '(' + (i+1) + ') ' + temp_name;
+      item_length += i < 9 ? 4 : 5;
+    } else {
+      item.name = temp_name;
+    }
+
+    // modify item price
+    var original_price = item.price;
+    var temp_price = original_price;
+    item.price = item.quantity * original_price;
+
+		var max_char = 0;
+    if (item.price < 10) max_char = commands.DEFAULT_MAX_CHAR + 1;
+    else if (item.price < 100) max_char = commands.DEFAULT_MAX_CHAR;
+    else max_char = commands.DEFAULT_MAX_CHAR - 1;
 
 		if (item_length <= max_char) {
 			line += item.name
@@ -232,8 +263,21 @@ function formatText(list) {
 				+ commands.NEW_LINE;
 		}
 
+    // restore temp values
+    item.name = original_name;
+    item.price = original_price;
+
 		text += commands.NEW_LINE;
+    total += (item.quantity * item.price);
 	}
+
+  total = utils.formatNumber(total);
+  text += commands.NEW_LINE
+    + utils.spaces(commands.DEFAULT_MAX_CHAR - 6)
+    + 'TOTALE'
+    + utils.spaces(total.length == commands.DEFAULT_PRICE_N_CHAR ? commands.N_SPACES :
+      (total.length == commands.DEFAULT_PRICE_N_CHAR + 1 ? commands.N_SPACES - 1 : commands.N_SPACES + 1))
+    + total;
 
 	return text;
 }

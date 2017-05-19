@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 
-function query(query, response) {
+function query(query, printer, response) {
   var connection = mysql.createConnection({
     host     : 'localhost',
     port     : '3306',
@@ -13,6 +13,7 @@ function query(query, response) {
 
   connection.query(query, function(err, rows, fields) {
     if (err) throw err;
+    // print here
     response.json(rows);
   });
 
