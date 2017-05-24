@@ -1,5 +1,5 @@
 {
-  "name": "react-backend",
+  "name": "pos2",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -10,9 +10,9 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "express": "~4.15.2",
+    "jade": "~1.11.0",
     "morgan": "~1.8.1",
     "mysql": "^2.13.0",
-    "net": "^1.0.2",
     "serve-favicon": "~2.4.2"
   }
 }

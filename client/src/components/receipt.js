@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import printerUtils from '../../../utils/printer_utils';
+import printerUtils from '../utils/printer_utils';
 
 class Receipt extends Component {
   render() {

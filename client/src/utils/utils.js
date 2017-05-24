@@ -7,7 +7,7 @@ function isFloat(n) {
 }
 
 function isString(s) {
-  return (typeof s == 'string' || s instanceof String);
+  return (typeof s === 'string' || s instanceof String);
 }
 
 function isStringArray(array) {
@@ -25,20 +25,20 @@ function isStringArray(array) {
 function isIpAddress(address) {
   return (
     isString(address) &&
-    address.split('.').length == 4 &&
-    isInt(parseInt(address.split('.')[0])) &&
-    isInt(parseInt(address.split('.')[1])) &&
-    isInt(parseInt(address.split('.')[2])) &&
-    isInt(parseInt(address.split('.')[3])) &&
-    parseInt(address.split('.')[0]) < 256 &&
-    parseInt(address.split('.')[1]) < 256 &&
-    parseInt(address.split('.')[2]) < 256 &&
-    parseInt(address.split('.')[3]) < 256
+    address.split('.').length === 4 &&
+    isInt(parseInt(address.split('.')[0], 10)) &&
+    isInt(parseInt(address.split('.')[1], 10)) &&
+    isInt(parseInt(address.split('.')[2], 10)) &&
+    isInt(parseInt(address.split('.')[3], 10)) &&
+    parseInt(address.split('.')[0], 10) < 256 &&
+    parseInt(address.split('.')[1], 10) < 256 &&
+    parseInt(address.split('.')[2], 10) < 256 &&
+    parseInt(address.split('.')[3], 10) < 256
   );
 }
 
 function isUndefined(something) {
-  return typeof something == 'undefined';
+  return typeof something === 'undefined';
 }
 
 function isOrderItem(item) {
@@ -72,7 +72,7 @@ function isOrderItemArray(array) {
 function formatNumber(number) {
 	var n = number.toString();
 	if (isFloat(number)) {
-		n = n.split('.')[1].length == 1 ? n + '0' : n;
+		n = n.split('.')[1].length === 1 ? n + '0' : n;
 		n = n.replace('.', ',');
 	} else if (isInt(number)) {
 		n += ',00';

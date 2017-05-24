@@ -1,5 +1,5 @@
 import { DISH_SELECTED } from '../actions/index';
-import Order from '../../../models/order_model';
+import Order from '../models/order_model';
 
 export default function (state = [], action) {
   switch (action.type) {

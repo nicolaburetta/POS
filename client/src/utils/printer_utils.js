@@ -1,6 +1,6 @@
 var net = require('net');
 var utils = require('./utils.js');
-var Order = require('../models/order_model.js');
+// var Order = require('../models/order_model.js');
 
 // printer props
 const FIRST_PRINTER_ADDRESS = 120;
@@ -88,9 +88,9 @@ function lookup() {
 
 	var _timeout = setTimeout(function(){
 
-		if (printer_lookup_count == LAST_PRINTER_ADDRESS - FIRST_PRINTER_ADDRESS + 1) {
+		if (printer_lookup_count === LAST_PRINTER_ADDRESS - FIRST_PRINTER_ADDRESS + 1) {
 			console.log('Printers discovered');
-			for (e in printer_list) {
+			for (var e in printer_list) {
 				console.log(printer_list[e]);
 			}
 		} else {
@@ -109,7 +109,7 @@ var cb = function(socket, host, result) {
 	//console.log(host + ': ' + result);
 	++printer_lookup_count;
 
-	if (result == 'success' && printer_list.indexOf(host) == -1) {
+	if (result === 'success' && printer_list.indexOf(host) === -1) {
 		printer_list.push(host);
 	}
 
@@ -178,7 +178,7 @@ function formatText(list, isVideoPreview) {
 
     // modify item price
     var original_price = item.price;
-    var temp_price = original_price;
+    // var temp_price = original_price;
     item.price = item.quantity * original_price;
 
 		var max_char = 0;
@@ -209,8 +209,8 @@ function formatText(list, isVideoPreview) {
 					j++;
 				}
 
-				if ((!first_line && line1.length == commands.DEFAULT_RETURN && array[j].length + line1.length > max_char)
-					|| (first_line && line1.length == 0 && array[j].length > max_char)) {
+				if ((!first_line && line1.length === commands.DEFAULT_RETURN && array[j].length + line1.length > max_char)
+					|| (first_line && line1.length === 0 && array[j].length > max_char)) {
 
 					var range = max_char - line1.length;
 					var k = 0;
@@ -275,8 +275,8 @@ function formatText(list, isVideoPreview) {
   text += commands.NEW_LINE
     + utils.spaces(commands.DEFAULT_MAX_CHAR - 6)
     + 'TOTALE'
-    + utils.spaces(total.length == commands.DEFAULT_PRICE_N_CHAR ? commands.N_SPACES :
-      (total.length == commands.DEFAULT_PRICE_N_CHAR + 1 ? commands.N_SPACES - 1 : commands.N_SPACES + 1))
+    + utils.spaces(total.length === commands.DEFAULT_PRICE_N_CHAR ? commands.N_SPACES :
+      (total.length === commands.DEFAULT_PRICE_N_CHAR + 1 ? commands.N_SPACES - 1 : commands.N_SPACES + 1))
     + total;
 
 	return text;

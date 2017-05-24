@@ -7,27 +7,29 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var dishes = require('./routes/dishes');
-var types = require('./routes/types');
+var dishes_types = require('./routes/dishes_types');
 
 var app = express();
 
-// view engine setup --> we don't care, this is an API server and the views
-// are managed by react
+// view engine setup, we do not care about it
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/utils', express.static(__dirname + 'client/src/utils'));
+app.use('/models', express.static(__dirname + 'client/src/models'));
 app.use('/js', express.static(__dirname + '/client/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
 app.use('/js', express.static(__dirname + '/client/node_modules/jquery/dist')); // redirect JS jQuery
 app.use('/css', express.static(__dirname + '/client/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
 
-app.use('/', index);
 app.use('/dishes', dishes);
-app.use('/dishes-types', types);
+app.use('/dishestypes', dishes_types);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

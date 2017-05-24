@@ -32,7 +32,7 @@ function deleteItem(items, position) {
 function total(items) {
 	if (utils.isOrderItemArray(items)) {
 		var tot = 0.0;
-		for (item in items) {
+		for (var item in items) {
 			tot += (item.price * item.quantity);
 		}
 		return tot;

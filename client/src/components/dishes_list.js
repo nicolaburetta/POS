@@ -5,7 +5,7 @@ export default class DishesList extends Component {
   state = { types: [] }
 
   componentDidMount() {
-    fetch('/dishes-types')
+    fetch('/dishestypes')
       .then(res => res.json())
       .then(types => this.setState({ types }));
   }
