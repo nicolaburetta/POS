@@ -22,7 +22,8 @@ class DishesListItem extends Component {
   }
 
   onItemSelected(dish) {
-    this.props.selectDish(dish);
+    this.props.selectDish(dish, this.props.quantity, [], []);
+    this.props.onChangeQuantity(1);
   }
 
   renderList() {
@@ -30,10 +31,10 @@ class DishesListItem extends Component {
       return (
         <li
           className="list-group-item cursor-pointer"
-          key={ dish.id }
+          key={dish.id}
           value={dish.name}
           onClick={() => this.onItemSelected(dish)}>
-          { dish.name }
+          {dish.name}
         </li>
       );
     });

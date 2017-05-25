@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import DishesListItem from './dishes_list_item';
 
 export default class DishesList extends Component {
-  state = { types: [] }
+  constructor(props) {
+    super(props);
+
+    this.state = { types: [] }
+  }
 
   componentDidMount() {
     fetch('/dishestypes')
@@ -13,14 +17,19 @@ export default class DishesList extends Component {
   renderList() {
     return this.state.types.map(type => {
       return (
-        <DishesListItem key={type.id} typeId={type.id} typeName={type.name} />
+        <DishesListItem
+          key={type.id}
+          typeId={type.id}
+          typeName={type.name}
+          quantity={this.props.quantity}
+          onChangeQuantity={this.props.onChangeQuantity} />
       );
     });
   }
 
   render() {
     return (
-      <div className="panel-group" id="dishes-list">
+      <div className="panel-group noselect" id="dishes-list">
         { this.renderList() }
       </div>
     );
