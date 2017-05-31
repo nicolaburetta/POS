@@ -78,6 +78,10 @@ textarea {
 }
 
 /* PADDING */
+.padding-0 {
+  padding: 0 !important;
+}
+
 .padding-5 {
   padding: 5px !important;
 }
@@ -92,6 +96,10 @@ textarea {
 
 .padding-20 {
   padding: 20px !important;
+}
+
+.padding-top-0 {
+  padding-top: 0 !important;
 }
 
 .padding-top-5 {
@@ -110,6 +118,10 @@ textarea {
   padding-top: 20px !important;
 }
 
+.padding-right-0 {
+  padding-right: 0 !important;
+}
+
 .padding-right-5 {
   padding-right: 5px !important;
 }
@@ -124,6 +136,10 @@ textarea {
 
 .padding-right-20 {
   padding-right: 20px !important;
+}
+
+.padding-bottom-0 {
+  padding-bottom: 0 !important;
 }
 
 .padding-bottom-5 {
@@ -142,6 +158,10 @@ textarea {
   padding-bottom: 20px !important;
 }
 
+.padding-left-0 {
+  padding-left: 0 !important;
+}
+
 .padding-left-5 {
   padding-left: 5px !important;
 }
@@ -158,6 +178,8 @@ textarea {
   padding-left: 20px !important;
 }
 
+/* MARGIN */
+
 /* NO SELECTABLE */
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
@@ -170,7 +192,8 @@ textarea {
 }
 
 /* Quantity label */
-.quantity-label {
+.mylabel {
+  width: 8.33%;
   position: fixed;
   bottom: 0;
   border: 1px solid black;
@@ -178,20 +201,25 @@ textarea {
   padding: 10px;
 }
 
-.quantity-label:hover {
+.mylabel:hover {
   cursor: pointer;
 }
 
-.quantity-label > div > h1 {
+.mylabel > div > div > h1 {
   font-size: 72px;
   margin: 0;
   text-align: center;
 }
 
-.quantity-label > div > h3 {
-  margin-top: 0;
+.mylabel > div > div > h3 {
+  margin-top: 10px;
   margin-bottom: 10px;
   text-align: center;
+}
+
+.mylabel > .line-label {
+  left: 8.33%;
+  display: inline-block;
 }
 
 /* Receipt */
@@ -201,19 +229,48 @@ textarea {
 }
 
 .receipt-form > select {
-  margin-right: 1%;
+  margin-right: 2%;
   width: 32% !important;
   float: left;
 }
 
-.receipt-form > button {
-  margin-left: 1%;
-  margin-right: 1%;
-  width: 32%;
-  float: left;
+.my-btn-container {
+  width: 66%;
+  float: right;
 }
 
-button:last-child {
-  margin-right: 0;
-  float: right;
+.receipt-form > label {
+  margin: 10px 0 10px 0;
+}
+
+.my-btn-group-ext {
+  width: 100%;
+}
+
+.my-btn-group-int {
+  width: 50%;
+}
+
+.my-btn-group-int > button {
+  margin: 0;
+  width: 100%;
+}
+
+/* Modal */
+.modal {
+  text-align: left;
+}
+
+/* Panel dishes list */
+#dishes-list > .panel > .panel-heading > h2.panel-title {
+  font-size: 24px;
+}
+
+#dishes-list > .panel > .panel-collapse > ul > li > h4 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#dishes-list > .panel > .panel-collapse > ul > li > h4 > button {
+  margin-left: 10px;
 }

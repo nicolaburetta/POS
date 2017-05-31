@@ -1,4 +1,4 @@
-import { DISH_SELECTED, ITEM_REMOVED } from '../actions/index';
+import { DISH_SELECTED, ITEM_REMOVED, ITEM_MODIFIED } from '../actions/actions_order';
 import Order from '../models/order_model';
 import utils from '../utils/utils';
 
@@ -15,15 +15,26 @@ export default function (state = [], action) {
       return (!orderItem) ? state : [...state, orderItem];
     case ITEM_REMOVED:
       if (utils.isInt(parseInt(action.payload, 10))) {
-        var newState = [];
-        for (var i = 0; i < state.length; i++) {
-          if (parseInt(i, 10) !== parseInt(action.payload, 10)) {
-            newState.push(state[i]);
+        var newState_rem = [];
+        for (var i_rem = 0; i_rem < state.length; i_rem++) {
+          if (parseInt(i_rem, 10) !== parseInt(action.payload, 10)) {
+            newState_rem.push(state[i_rem]);
           }
         }
-        return newState;
+        return newState_rem;
       }
       return state;
+    case ITEM_MODIFIED:
+      var newState_mod = [];
+      for (var i_mod = 0; i_mod < state.length; i_mod++) {
+        if (parseInt(i_mod, 10) !== parseInt(action.payload.index, 10)) newState_mod.push(state[i_mod]);
+        else {
+          var item = state[i_mod];
+          item.quantity = action.payload.quantity;
+          newState_mod.push(item);
+        }
+      }
+      return newState_mod;
     default:
       return state;
   }

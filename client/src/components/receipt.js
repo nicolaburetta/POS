@@ -1,24 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { removeItem } from '../actions/index';
+
+import { removeItem } from '../actions/actions_order';
+import { changeLine } from '../actions/actions_receipt';
+
 import printerUtils from '../utils/printer_utils';
 
 class Receipt extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { index: 99999 };
-    this.removeItem = this.removeItem.bind(this);
+    this.receiptRemoveItem = this.receiptRemoveItem.bind(this);
+    this.receiptChangeLine = this.receiptChangeLine.bind(this);
   }
 
-  removeItem() {
-    this.props.removeItem(this.state.index);
-    this.setState({ index: 99999 });
+  receiptRemoveItem() {
+    this.props.removeItem(this.props.currentReceiptLine);
+    this.props.changeLine(this.props.order.length - 2);
+  }
+
+  receiptChangeLine(event) {
+    this.props.changeLine(event.target.value);
   }
 
   render() {
-    console.log(this.state.index);
     return (
       <div className="form-group noselect">
         <textarea
@@ -28,13 +34,13 @@ class Receipt extends Component {
           readOnly
           value={'SCONTRINO - ANTEPRIMA\n' + printerUtils.formatText(this.props.order, true)}></textarea>
 
-        <form className="form-inline receipt-form">
+        <div className="receipt-form">
           <label className="sr-only" htmlFor="inlineFormInput">Line</label>
           <select
             className="form-control input-lg"
             id="inlineFormInput"
-            onChange={event => this.setState({ index: event.target.value })}>
-            <option defaultValue>Scegli...</option>
+            onChange={this.receiptChangeLine}>
+            <option defaultValue>Riga...</option>
             {
               this.props.order.map(
                 (order, index) => {
@@ -42,29 +48,44 @@ class Receipt extends Component {
                     <option
                       key={index}
                       value={index}>{index + 1}</option>
-                  )
+                  );
                 }
               )
             }
           </select>
 
-          <button
-            type="button"
-            className="btn btn-danger btn-lg"
-            onClick={() => this.removeItem()}>Elimina</button>
-          <button type="button" className="btn btn-warning btn-lg">Modifica</button>
-        </form>
+          <div className="my-btn-container">
+            <div className="btn-group btn-group-lg my-btn-group-ext">
+              <div className="btn-group btn-group-lg my-btn-group-int">
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={() => this.receiptRemoveItem()}>Elimina</button>
+              </div>
+              <div className="btn-group btn-group-lg my-btn-group-int">
+                <button
+                  type="button"
+                  className="btn btn-warning modify-button"
+                  id="modify-button"
+                  value={this.props.order.length}
+                  data-toggle="modal"
+                  data-target={`#${this.props.idModal}`}>Modifica</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     );
   }
 }
 
-function mapStateToProps({ order }) {
-  return { order };
+function mapStateToProps({ order, currentReceiptLine }) {
+  return { order, currentReceiptLine };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ removeItem }, dispatch);
+  return bindActionCreators({ removeItem, changeLine }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Receipt);

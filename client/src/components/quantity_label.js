@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { addQuantity, removeQuantity } from '../actions/actions_quantity';
+
 import utils from '../utils/utils';
 
-export default class QuantityLabel extends Component {
+class QuantityLabel extends Component {
   constructor(props) {
     super(props);
 
@@ -10,7 +15,7 @@ export default class QuantityLabel extends Component {
 
   setQuantity(q, event) {
     if (utils.isInt(q) && q > 0) {
-      this.props.onChangeQuantity(q);
+      this.props.removeQuantity(q);
     }
     event.preventDefault();
   }
@@ -19,17 +24,27 @@ export default class QuantityLabel extends Component {
     return (
       <div
         className="quantity-label noselect"
-        onClick={(event) => this.setQuantity(this.props.value + 1, event)}
-        onContextMenu={(event) => this.setQuantity(this.props.value - 1, event)}
-        value={this.props.value}
+        onClick={() => this.props.addQuantity(1)}
+        onContextMenu={(event) => this.setQuantity(1, event)}
+        value={this.props.currentQuantity}
         >
         <div>
           <h3>Quantità</h3>
         </div>
         <div>
-          <h1>{this.props.value}</h1>
+          <h1>{this.props.currentQuantity}</h1>
         </div>
       </div>
     );
   }
-};
+}
+
+function mapStateToProps({ currentQuantity }) {
+  return { currentQuantity };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ addQuantity, removeQuantity }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(QuantityLabel);

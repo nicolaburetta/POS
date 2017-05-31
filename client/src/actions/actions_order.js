@@ -1,5 +1,6 @@
 export const DISH_SELECTED = 'DISH_SELECTED';
 export const ITEM_REMOVED = 'ITEM_REMOVED';
+export const ITEM_MODIFIED = 'ITEM_MODIFIED';
 
 export function selectDish(_dish, _quantity, _add, _remove) {
   return {
@@ -19,5 +20,15 @@ export function removeItem(index) {
   return {
     type: ITEM_REMOVED,
     payload: index
+  };
+};
+
+export function modifyItem(_index, _quantity) {
+  return {
+    type: ITEM_MODIFIED,
+    payload: {
+      index: _index,
+      quantity: _quantity
+    }
   };
 };
