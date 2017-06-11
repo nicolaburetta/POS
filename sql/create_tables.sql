@@ -1,5 +1,3 @@
-CREATE DATABASE `pos` /*!40100 DEFAULT CHARACTER SET utf8 */;
-
 CREATE TABLE `orders` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`),
