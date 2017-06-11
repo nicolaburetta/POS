@@ -23,7 +23,7 @@ class QuantityLabel extends Component {
   render() {
     return (
       <div
-        className="quantity-label noselect"
+        className="mylabel-content quantity-label noselect"
         onClick={() => this.props.addQuantity(1)}
         onContextMenu={(event) => this.setQuantity(1, event)}
         value={this.props.currentQuantity}

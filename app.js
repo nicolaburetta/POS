@@ -8,6 +8,8 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var dishes = require('./routes/dishes');
 var dishes_types = require('./routes/dishes_types');
+var ingredients = require('./routes/ingredients');
+var insert_order = require('./routes/insert_order');
 
 var app = express();
 
@@ -30,6 +32,8 @@ app.use('/css', express.static(__dirname + '/client/node_modules/bootstrap/dist/
 
 app.use('/dishes', dishes);
 app.use('/dishestypes', dishes_types);
+app.use('/ingredients', ingredients);
+app.use('/insert-order', insert_order);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

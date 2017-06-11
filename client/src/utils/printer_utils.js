@@ -25,51 +25,61 @@ const commands = {
   	0x40]),
   NEW_LINE: '\n',
   JUST_LEFT: new Buffer([
-  	0x1B,
-  	0x61,
-  	0x00]),
+  	0x1B,	0x61,	0x00
+  ]),
   JUST_CENTER: new Buffer([
-  	0x1B,
-  	0x61,
-  	0x01]),
+  	0x1B,	0x61,	0x01
+  ]),
   JUST_RIGHT: new Buffer([
-  	0x1B,
-  	0x61,
-  	0x02]),
+  	0x1B,	0x61,	0x02
+  ]),
   CHAR_A: new Buffer([
-  	0x1B,
-  	0x4D,
-  	0x00]),
+  	0x1B,	0x4D,	0x00
+  ]),
   CHAR_B: new Buffer([
-  	0x1B,
-  	0x4D,
-  	0x01]),
+  	0x1B,	0x4D,	0x01
+  ]),
   CHAR_C: new Buffer([
-  	0x1B,
-  	0x4D,
-  	0x02]),
+  	0x1B,	0x4D,	0x02
+  ]),
+  BOLD_OFF: new Buffer([
+    0x1b, 0x45, 0x00
+  ]),
+  BOLD_ON: new Buffer([
+    0x1b, 0x45, 0x01
+  ]),
+  UNDERL_OFF: new Buffer([
+    0x1b, 0x2d, 0x00
+  ]),
+  UNDERL_1_ON: new Buffer([
+    0x1b, 0x2d, 0x01
+  ]),
+  UNDERL_2_ON: new Buffer([
+    0x1b, 0x2d, 0x02
+  ]),
+  TEXT_NORMAL: new Buffer([
+    0x1b, 0x21, 0x00
+  ]),
+  TEXT_DOUBLE_HEIGHT: new Buffer([
+    0x1b, 0x21, 0x10
+  ]),
+  TEXT_DOUBLE_WIDTH: new Buffer([
+    0x1b, 0x21, 0x20
+  ]),
   DOUBLE_STRIKE_ON: new Buffer([
-  	0x1B,
-  	0x47,
-  	0x01]),
+  	0x1B,	0x47,	0x01
+  ]),
   DOUBLE_STRIKE_OFF: new Buffer([
-  	0x1B,
-  	0x47,
-  	0x02]),
+  	0x1B,	0x47,	0x02
+  ]),
   CUT_PAPER: new Buffer([
-  	0x0A,
-  	0x0A,
-  	0x0A,
-  	0x0A,
+  	0x0A,	0x0A,	0x0A,	0x0A,
   	// cut paper
-  	0x1D,
-  	0x56,
-  	0x41,
-  	0x00]),
+  	0x1D,	0x56,	0x41,	0x00
+  ]),
   CLEAR_BUFFER: new Buffer([
-    0x10,
-    0x14,
-    0x08])
+    0x10, 0x14, 0x08
+  ])
 };
 
 var printer_list = [];
@@ -244,23 +254,22 @@ function formatText(list, isVideoPreview) {
 				count++;
 			}
 		}
-
 		text += line;
 
 		for (var a in item.add) {
-			text += utils.spaces(commands.DEFAULT_ADD_REM_RETURN)
+			text += commands.NEW_LINE
+        + utils.spaces(commands.DEFAULT_ADD_REM_RETURN)
 				+ '+ '
 				+ item.add[a]
-				+ utils.spaces(commands.LINE_N_CHAR - item.add[a].length - 2 - commands.DEFAULT_ADD_REM_RETURN)
-				+ commands.NEW_LINE;
+				+ utils.spaces(commands.LINE_N_CHAR - item.add[a].length - 2 - commands.DEFAULT_ADD_REM_RETURN);
 		}
 
 		for (var r in item.remove) {
-			text += utils.spaces(commands.DEFAULT_ADD_REM_RETURN)
+			text += commands.NEW_LINE
+        + utils.spaces(commands.DEFAULT_ADD_REM_RETURN)
 				+ '- '
 				+ item.remove[r]
-				+ utils.spaces(commands.LINE_N_CHAR - item.remove[r].length - 2 - commands.DEFAULT_ADD_REM_RETURN)
-				+ commands.NEW_LINE;
+				+ utils.spaces(commands.LINE_N_CHAR - item.remove[r].length - 2 - commands.DEFAULT_ADD_REM_RETURN);
 		}
 
     // restore temp values

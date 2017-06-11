@@ -1,4 +1,4 @@
-import { DISH_SELECTED, ITEM_REMOVED, ITEM_MODIFIED } from '../actions/actions_order';
+import { DISH_SELECTED, ITEM_REMOVED, ITEM_MODIFIED, CLEAR_ORDER } from '../actions/actions_order';
 import Order from '../models/order_model';
 import utils from '../utils/utils';
 
@@ -31,10 +31,14 @@ export default function (state = [], action) {
         else {
           var item = state[i_mod];
           item.quantity = action.payload.quantity;
+          item.add = action.payload.add;
+          item.remove = action.payload.remove;
           newState_mod.push(item);
         }
       }
       return newState_mod;
+    case CLEAR_ORDER:
+      return action.payload;
     default:
       return state;
   }

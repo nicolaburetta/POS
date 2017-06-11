@@ -71,11 +71,13 @@ class DishesList extends Component {
   renderList(items) {
     return items.map(item => {
       const collapse = `collapse${item.type.id}`;
+      const panel_collapse = `panel-${collapse}`;
       const id_collapse = `#${collapse}`;
       const dishes = item.dishes;
       return (
         <div key={item.type.id} className="panel panel-default">
           <div className="panel-heading cursor-pointer"
+            id={panel_collapse}
             data-toggle="collapse"
             data-target={id_collapse}
             data-parent="#dishes-list">

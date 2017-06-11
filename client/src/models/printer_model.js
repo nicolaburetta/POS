@@ -1,4 +1,4 @@
-var net = require('net');
+var net = require('net-socket');
 var utils = require('../utils/utils.js');
 var printer_utils = require('../utils/printer_utils.js');
 
@@ -18,13 +18,15 @@ function setupPrinter(_host, _port, _type, _owner, _location) {
 			location: _location,
 			print: function(orderList) {
 				if (utils.isOrderItemArray(orderList)) {
-				  var client = new net.Socket();
-				  client.connect(port, host, function() {
+				  var client = new net.connect(_port, _host);
+				  client.on('connect', function() {
+						console.log(_host + ' connected');
 
-				    var text = printer_utils.formatText(orderList);
+				    var text = printer_utils.formatText(orderList, false);
 
 				    client.write(commands.INITIALIZE);
 				    client.write(commands.CHAR_A);
+						client.write(commands.TEXT_DOUBLE_HEIGHT);
 
 				    // LOGO
 				    // client.write(logo);
@@ -33,9 +35,9 @@ function setupPrinter(_host, _port, _type, _owner, _location) {
 				    client.write(commands.JUST_CENTER);
 
 				    client.write(commands.NEW_LINE);
-				    client.write(owner);
+				    client.write(_owner);
 				    client.write(commands.NEW_LINE);
-				    client.write(location);
+				    client.write(_location);
 				    client.write(commands.NEW_LINE);
 				    client.write(commands.NEW_LINE);
 
@@ -44,13 +46,44 @@ function setupPrinter(_host, _port, _type, _owner, _location) {
 				    client.write(text);
 				    client.write(commands.NEW_LINE);
 
+						// ID order
+						client.write(commands.NEW_LINE);
+						client.write(commands.JUST_CENTER);
+						client.write(commands.TEXT_DOUBLE_WIDTH);
+						client.write(commands.TEXT_DOUBLE_HEIGHT);
+						client.write(commands.BOLD_ON);
+						client.write(commands.UNDERL_1_ON);
+						client.write('ORDINE 57');
+						client.write(commands.UNDERL_OFF);
+						client.write(commands.BOLD_OFF);
+						client.write(commands.TEXT_NORMAL);
+						client.write(commands.JUST_LEFT);
+
 				    // CUT paper
 				    client.write(commands.CUT_PAPER);
 
 				    // END
 						client.write(commands.CLEAR_BUFFER);
-				    client.destroy();
+
+				    client.destroy(_host + ': end print');
 				  });
+
+					client.on('error', function(err) {
+						console.log(_host + ' ERROR:\n' + err);
+					});
+
+					client.on('timeout', function() {
+						console.log(_host + ' timeout. The connection will be closed');
+						client.destroy();
+					});
+
+					client.on('data', function(data) {
+						console.log(_host + ' response: ' + data);
+					});
+
+					client.on('end', function() {
+						console.log(_host + ': connection closed');
+					});
 				}
 				return false;
 			}

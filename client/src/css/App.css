@@ -179,6 +179,105 @@ textarea {
 }
 
 /* MARGIN */
+.margin-0 {
+  margin: 0 !important;
+}
+
+.margin-5 {
+  margin: 5px !important;
+}
+
+.margin-10 {
+  margin: 10px !important;
+}
+
+.margin-15 {
+  margin: 15px !important;
+}
+
+.margin-20 {
+  margin: 20px !important;
+}
+
+.margin-top-0 {
+  margin-top: 0 !important;
+}
+
+.margin-top-5 {
+  margin-top: 5px !important;
+}
+
+.margin-top-10 {
+  margin-top: 10px !important;
+}
+
+.margin-top-15 {
+  margin-top: 15px !important;
+}
+
+.margin-top-20 {
+  margin-top: 20px !important;
+}
+
+.margin-right-0 {
+  margin-right: 0 !important;
+}
+
+.margin-right-5 {
+  margin-right: 5px !important;
+}
+
+.margin-right-10 {
+  margin-right: 10px !important;
+}
+
+.margin-right-15 {
+  margin-right: 15px !important;
+}
+
+.margin-right-20 {
+  margin-right: 20px !important;
+}
+
+.margin-bottom-0 {
+  margin-bottom: 0 !important;
+}
+
+.margin-bottom-5 {
+  margin-bottom: 5px !important;
+}
+
+.margin-bottom-10 {
+  margin-bottom: 10px !important;
+}
+
+.margin-bottom-15 {
+  margin-bottom: 15px !important;
+}
+
+.margin-bottom-20 {
+  margin-bottom: 20px !important;
+}
+
+.margin-left-0 {
+  margin-left: 0 !important;
+}
+
+.margin-left-5 {
+  margin-left: 5px !important;
+}
+
+.margin-left-10 {
+  margin-left: 10px !important;
+}
+
+.margin-left-15 {
+  margin-left: 15px !important;
+}
+
+.margin-left-20 {
+  margin-left: 20px !important;
+}
 
 /* NO SELECTABLE */
 .noselect {
@@ -192,7 +291,7 @@ textarea {
 }
 
 /* Quantity label */
-.mylabel {
+.mylabel-container {
   width: 8.33%;
   position: fixed;
   bottom: 0;
@@ -201,25 +300,24 @@ textarea {
   padding: 10px;
 }
 
-.mylabel:hover {
+.mylabel-container.quantity-label:hover {
   cursor: pointer;
 }
 
-.mylabel > div > div > h1 {
+.mylabel-container > div > div > h1 {
   font-size: 72px;
-  margin: 0;
+  margin: 0 0 10px 0;
   text-align: center;
 }
 
-.mylabel > div > div > h3 {
-  margin-top: 10px;
+.mylabel-container > div > div > h3 {
+  margin-top: 15px;
   margin-bottom: 10px;
   text-align: center;
 }
 
-.mylabel > .line-label {
-  left: 8.33%;
-  display: inline-block;
+.mylabel-container.line-label {
+  right: 25px;
 }
 
 /* Receipt */
@@ -273,4 +371,46 @@ textarea {
 
 #dishes-list > .panel > .panel-collapse > ul > li > h4 > button {
   margin-left: 10px;
+}
+
+/* Ingredients dropdown */
+ul.dropdown-menu > li > a > h4 {
+  display: inline-block;
+  margin: 6px 0;
+}
+
+.my-modal-form > .button-group {
+  display: inline-block;
+  margin-left: 2%;
+  width: 32%;
+}
+
+.my-modal-form > select {
+  margin: 0;
+  width: 32% !important;
+}
+
+.my-modal-form > .button-group > button {
+  width: 100%;
+  text-align: left;
+}
+
+.my-modal-form > .button-group > button > span {
+  float: right;
+}
+
+#last-button-group {
+  float: right;
+}
+
+.dropdown-menu {
+  top: inherit !important;
+  left: inherit !important;
+}
+
+/* Confirm button */
+.confirm-button-container > .btn.btn-success {
+  margin-top: 10px;
+  width: 100%;
+  font-size: 24px;
 }
