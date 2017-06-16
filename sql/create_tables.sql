@@ -56,3 +56,12 @@ CREATE TABLE `order_dishes` (
   CONSTRAINT `id_order_o` FOREIGN KEY (`id_order`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `dishes_ingredients` (
+  `id_dish` int(10) unsigned NOT NULL,
+  `id_ing` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id_dish`,`id_ing`),
+  KEY `id_ing_idx` (`id_ing`),
+  CONSTRAINT `id_dish` FOREIGN KEY (`id_dish`) REFERENCES `dishes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `id_ing` FOREIGN KEY (`id_ing`) REFERENCES `ingredients` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
