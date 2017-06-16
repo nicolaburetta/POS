@@ -80,7 +80,7 @@ class Modal extends Component {
 
     if (utils.isInt(newQuantity)) {
       this.setState({
-        quantity: event.target.value,
+        quantity: newQuantity,
         saveBtnEnabled
       });
     } else {

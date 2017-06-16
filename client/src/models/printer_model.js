@@ -16,7 +16,7 @@ function setupPrinter(_host, _port, _type, _owner, _location) {
 			type: _type,
 			owner: _owner,
 			location: _location,
-			print: function(orderList) {
+			print: function(orderList, idOrder) {
 				if (utils.isOrderItemArray(orderList)) {
 				  var client = new net.connect(_port, _host);
 				  client.on('connect', function() {
@@ -26,7 +26,6 @@ function setupPrinter(_host, _port, _type, _owner, _location) {
 
 				    client.write(commands.INITIALIZE);
 				    client.write(commands.CHAR_A);
-						client.write(commands.TEXT_DOUBLE_HEIGHT);
 
 				    // LOGO
 				    // client.write(logo);
@@ -47,13 +46,13 @@ function setupPrinter(_host, _port, _type, _owner, _location) {
 				    client.write(commands.NEW_LINE);
 
 						// ID order
-						client.write(commands.NEW_LINE);
-						client.write(commands.JUST_CENTER);
 						client.write(commands.TEXT_DOUBLE_WIDTH);
 						client.write(commands.TEXT_DOUBLE_HEIGHT);
 						client.write(commands.BOLD_ON);
 						client.write(commands.UNDERL_1_ON);
-						client.write('ORDINE 57');
+						client.write(commands.JUST_CENTER);
+						client.write(commands.NEW_LINE);
+						client.write('ORDINE ' + idOrder);
 						client.write(commands.UNDERL_OFF);
 						client.write(commands.BOLD_OFF);
 						client.write(commands.TEXT_NORMAL);

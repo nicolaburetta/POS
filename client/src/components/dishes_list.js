@@ -47,19 +47,27 @@ class DishesList extends Component {
   }
 
   selectItem(dish) {
+    console.log(dish);
     this.props.selectDish(dish, this.props.currentQuantity, [], []);
     this.props.resetQuantity();
     this.props.changeLine(this.props.order.length);
   }
 
-  renderDishesList(dishes) {
-    return dishes.map(dish => {
+  renderDishesList(item) {
+    return item.dishes.map(dish => {
+      const obj = {
+        type_id: item.type.id,
+        id: dish.id,
+        name: dish.name,
+        price: dish.price
+      };
+
       return (
         <li
           className="list-group-item cursor-pointer"
           key={dish.id}
           value={dish.name}
-          onClick={() => this.selectItem(dish)}>
+          onClick={() => this.selectItem(obj)}>
           <h4>
             {dish.name}
           </h4>
@@ -73,7 +81,6 @@ class DishesList extends Component {
       const collapse = `collapse${item.type.id}`;
       const panel_collapse = `panel-${collapse}`;
       const id_collapse = `#${collapse}`;
-      const dishes = item.dishes;
       return (
         <div key={item.type.id} className="panel panel-default">
           <div className="panel-heading cursor-pointer"
@@ -87,7 +94,7 @@ class DishesList extends Component {
           </div>
           <div id={collapse} className="panel-collapse collapse">
             <ul className="list-group">
-              { this.renderDishesList(dishes) }
+              { this.renderDishesList(item) }
             </ul>
           </div>
         </div>

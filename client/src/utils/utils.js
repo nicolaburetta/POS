@@ -42,7 +42,8 @@ function isUndefined(something) {
 }
 
 function isOrderItem(item) {
-  return !isUndefined(item.id)
+  return !isUndefined(item.type_id)
+      && !isUndefined(item.id)
       && !isUndefined(item.name)
       && !isUndefined(item.price)
       && !isUndefined(item.quantity)

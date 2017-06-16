@@ -7,6 +7,7 @@ export function selectDish(_dish, _quantity, _add, _remove) {
   return {
     type: DISH_SELECTED,
     payload: {
+      type_id: _dish.type_id,
       id: _dish.id,
       name: _dish.name,
       price: _dish.price,

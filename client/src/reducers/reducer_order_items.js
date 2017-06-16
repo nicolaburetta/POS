@@ -6,6 +6,7 @@ export default function (state = [], action) {
   switch (action.type) {
     case DISH_SELECTED:
       var orderItem = Order.createItem(
+        action.payload.type_id,
         action.payload.id,
         action.payload.name,
         action.payload.price,

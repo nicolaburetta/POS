@@ -2,6 +2,14 @@ var net = require('net');
 var utils = require('./utils.js');
 // var Order = require('../models/order_model.js');
 
+const printers_ip = [
+  '192.168.1.120',
+  '192.168.1.121',
+  '192.168.1.122',
+  '192.168.1.123',
+  '192.168.1.124'
+];
+
 // printer props
 const FIRST_PRINTER_ADDRESS = 120;
 const LAST_PRINTER_ADDRESS = 129;
@@ -292,6 +300,7 @@ function formatText(list, isVideoPreview) {
 }
 
 module.exports = {
+  printers_ip: printers_ip,
   lookup: lookup,
   formatText: formatText,
   commands: commands

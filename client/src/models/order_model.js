@@ -1,13 +1,15 @@
 var utils = require('../utils/utils.js');
 
-function createItem(_id, _name, _price, _quantity, _add, _remove) {
-	if (utils.isInt(_id) && _id > 0
+function createItem(_type_id, _id, _name, _price, _quantity, _add, _remove) {
+	if (utils.isInt(_type_id)
+			&& utils.isInt(_id) && _id > 0
 			&& utils.isString(_name)
 			&& (utils.isInt(_price) || utils.isFloat(_price))
 			&& utils.isInt(_quantity) && _quantity > 0
 			&& utils.isStringArray(_add)
 			&& utils.isStringArray(_remove)) {
 			return {
+				type_id: _type_id,
 				id: _id,
 				name: _name,
 				price: _price,

@@ -22,6 +22,7 @@ class App extends Component {
   }
 
   sendOrder() {
+    console.log(this.props.order);
     if (this.props.order.length > 0) {
       fetch(`/insert-order`, {
         headers: {

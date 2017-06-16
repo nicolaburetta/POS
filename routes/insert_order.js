@@ -1,6 +1,7 @@
 var express = require('express');
 var mysql = require('mysql');
 var db_conn = require('../db_utils/db_conn');
+var printers_ip = require('../client/src/utils/printer_utils').printers_ip;
 var router = express.Router();
 
 const setupPrinter = require('../client/src/models/printer_model');
@@ -8,6 +9,7 @@ const setupPrinter = require('../client/src/models/printer_model');
 /* GET home page. */
 router.post('/', function(req, res, next) {
   const order = req.body;
+  console.log(order);
 
   if (typeof order != 'undefined') {
 
@@ -24,8 +26,12 @@ router.post('/', function(req, res, next) {
       console.log('ID order: ' + id_order);
 
       var data = [];
+      var kitchen_data_1 = [];
+      var kitchen_data_2 = [];
+      var kitchen_data_3 = [];
       var quantities = [];
       for (i in order) {
+        // create data structure for the query
         var found = false;
         var foundIndex = 0;
         var index = 0;
@@ -43,6 +49,15 @@ router.post('/', function(req, res, next) {
           index--;
           (data[index])[2] += order[i].quantity;
         }
+
+        // create different data structures for the kitchen
+        if (order[i].type_id === 1) kitchen_data_1.push(order[i]);
+        else if (order[i].type_id === 2) kitchen_data_2.push(order[i]);
+        else if (order[i].type_id === 3) kitchen_data_3.push(order[i]);
+        console.log('DATA 1: ',kitchen_data_1);
+        console.log('DATA 2: ',kitchen_data_2);
+        console.log('DATA 3: ',kitchen_data_3);
+
       }
       console.log('Query insert data: ', data);
 
@@ -50,8 +65,14 @@ router.post('/', function(req, res, next) {
         if (err) throw err;
 
         try {
-          var printer1 = setupPrinter('192.168.1.123', 9100, 80, 'Progetto Giovani Sarcedo', 'Parco Anfiteatro, via T. Vecellio');
-          printer1.print(order);
+          var printer_cash_register = setupPrinter(printers_ip[0], 9100, 80, 'PROGETTO GIOVANI SARCEDO', 'Parco Anfiteatro, via T. Vecellio');
+          var printer_1 = setupPrinter(printers_ip[1], 9100, 80, 'BRUSCHETTA', '');
+          var printer_2 = setupPrinter(printers_ip[2], 9100, 80, 'PANINO', '');
+          var printer_3 = setupPrinter(printers_ip[4], 9100, 80, 'FRITTO', '');
+          printer_cash_register.print(order, id_order);
+          if (kitchen_data_1.length > 0) { printer_1.print(kitchen_data_1, id_order); }
+          if (kitchen_data_2.length > 0) { printer_2.print(kitchen_data_2, id_order); }
+          if (kitchen_data_3.length > 0) { printer_3.print(kitchen_data_3, id_order); }
         } catch (exception) {
           console.log(exception);
         }
