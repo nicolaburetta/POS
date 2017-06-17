@@ -62,6 +62,5 @@ CREATE TABLE `dishes_ingredients` (
   PRIMARY KEY (`id_dish`,`id_ing`),
   KEY `id_ing_idx` (`id_ing`),
   CONSTRAINT `id_dish` FOREIGN KEY (`id_dish`) REFERENCES `dishes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `id_ing` FOREIGN KEY (`id_ing`) REFERENCES `ingredients` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
+  CONSTRAINT `id_ing` FOREIGN KEY (`id_ing`) REFERENCES `ingredients` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-

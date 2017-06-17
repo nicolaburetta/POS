@@ -69,10 +69,10 @@ router.post('/', function(req, res, next) {
           var printer_1 = setupPrinter(printers_ip[1], 9100, 80, 'BRUSCHETTA', '');
           var printer_2 = setupPrinter(printers_ip[2], 9100, 80, 'PANINO', '');
           var printer_3 = setupPrinter(printers_ip[4], 9100, 80, 'FRITTO', '');
-          printer_cash_register.print(order, id_order);
-          if (kitchen_data_1.length > 0) { printer_1.print(kitchen_data_1, id_order); }
-          if (kitchen_data_2.length > 0) { printer_2.print(kitchen_data_2, id_order); }
-          if (kitchen_data_3.length > 0) { printer_3.print(kitchen_data_3, id_order); }
+          printer_cash_register.print(order, id_order, false);
+          if (kitchen_data_1.length > 0) { printer_1.print(kitchen_data_1, id_order, true); }
+          if (kitchen_data_2.length > 0) { printer_2.print(kitchen_data_2, id_order, true); }
+          if (kitchen_data_3.length > 0) { printer_3.print(kitchen_data_3, id_order, true); }
         } catch (exception) {
           console.log(exception);
         }
