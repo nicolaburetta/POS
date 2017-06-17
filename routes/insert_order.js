@@ -51,9 +51,9 @@ router.post('/', function(req, res, next) {
         }
 
         // create different data structures for the kitchen
-        if (order[i].type_id === 1) kitchen_data_1.push(order[i]);
-        else if (order[i].type_id === 2) kitchen_data_2.push(order[i]);
-        else if (order[i].type_id === 3) kitchen_data_3.push(order[i]);
+        if (order[i].type_id === 5) kitchen_data_1.push(order[i]);
+        else if (order[i].type_id === 6) kitchen_data_2.push(order[i]);
+        else if (order[i].type_id === 7) kitchen_data_3.push(order[i]);
         console.log('DATA 1: ',kitchen_data_1);
         console.log('DATA 2: ',kitchen_data_2);
         console.log('DATA 3: ',kitchen_data_3);
