@@ -34,7 +34,7 @@ CREATE TABLE `dishes` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `id_type_idx` (`id_type`),
-  CONSTRAINT `id_type` FOREIGN KEY (`id_type`) REFERENCES `dishes_types` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `id_type` FOREIGN KEY (`id_type`) REFERENCES `dishes_types` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `order_drinks` (

@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
+var addresses = require('./routes/addresses')
 var dishes = require('./routes/dishes');
 var dishes_types = require('./routes/dishes_types');
 var ingredients = require('./routes/ingredients');
@@ -30,6 +31,7 @@ app.use('/js', express.static(__dirname + '/client/node_modules/bootstrap/dist/j
 app.use('/js', express.static(__dirname + '/client/node_modules/jquery/dist')); // redirect JS jQuery
 app.use('/css', express.static(__dirname + '/client/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
 
+app.use('/addresses', addresses);
 app.use('/dishes', dishes);
 app.use('/dishestypes', dishes_types);
 app.use('/ingredients', ingredients);

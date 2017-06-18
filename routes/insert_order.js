@@ -8,7 +8,8 @@ const setupPrinter = require('../client/src/models/printer_model');
 
 /* GET home page. */
 router.post('/', function(req, res, next) {
-  const order = req.body;
+  const order = req.body.order;
+  const printer_index = req.body.cash_register;
   console.log(order);
 
   if (typeof order != 'undefined') {
@@ -65,7 +66,7 @@ router.post('/', function(req, res, next) {
         if (err) throw err;
 
         try {
-          var printer_cash_register = setupPrinter(printers_ip[0], 9100, 80, 'PROGETTO GIOVANI SARCEDO', 'Parco Anfiteatro, via T. Vecellio');
+          var printer_cash_register = setupPrinter(printers_ip[printer_index], 9100, 80, 'PROGETTO GIOVANI SARCEDO', 'Parco Anfiteatro, via T. Vecellio');
           var printer_1 = setupPrinter(printers_ip[1], 9100, 80, 'BRUSCHETTA', '');
           var printer_2 = setupPrinter(printers_ip[2], 9100, 80, 'PANINO', '');
           var printer_3 = setupPrinter(printers_ip[4], 9100, 80, 'FRITTO', '');

@@ -7,6 +7,7 @@ import Receipt from './receipt';
 import Modal from './modal';
 import QuantityLabel from './quantity_label';
 import LineLabel from './receipt_current_line_label';
+import FirstPage from './first_page';
 
 import { clearOrder } from '../actions/actions_order';
 import { resetQuantity } from '../actions/actions_quantity';
@@ -19,6 +20,12 @@ class App extends Component {
     super(props);
 
     this.sendOrder = this.sendOrder.bind(this);
+    this.changeCashRegister = this.changeCashRegister.bind(this);
+    this.state = { cash_register: null };
+  }
+
+  changeCashRegister(cash_register) {
+    this.setState({ cash_register });
   }
 
   sendOrder() {
@@ -30,7 +37,10 @@ class App extends Component {
         'Content-Type': 'application/json'
         },
         method: 'post',
-        body: JSON.stringify(this.props.order)
+        body: {
+          order: JSON.stringify(this.props.order),
+          cash_register: this.state.cash_register
+        }
       })
         .then(res => res.json())
         .then(res => {
@@ -48,6 +58,7 @@ class App extends Component {
   }
 
   render() {
+    if (this.state.cash_register == null) return ( <FirstPage changeIndex={this.changeCashRegister} /> );
     const idmodal = 'modify-order';
     return (
       <div>
