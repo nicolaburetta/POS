@@ -17,6 +17,7 @@ function setupPrinter(_host, _port, _type, _owner, _location) {
 			owner: _owner,
 			location: _location,
 			print: function(orderList, idOrder, kitchen) {
+				const date = utils.getDate();
 				if (utils.isOrderItemArray(orderList)) {
 				  var client = new net.connect(_port, _host);
 				  client.on('connect', function() {
@@ -44,9 +45,19 @@ function setupPrinter(_host, _port, _type, _owner, _location) {
 					    client.write(commands.NEW_LINE);
 					    client.write(commands.NEW_LINE);
 
+					    client.write(utils.spaces(printer_utils.commands.LINE_N_CHAR - 3) + 'EUR');
+					    client.write(commands.NEW_LINE);
+
 					    // PRODUCTS and PRICES
 					    client.write(commands.JUST_LEFT);
 					    client.write(text);
+					    client.write(commands.NEW_LINE);
+
+					    // DATE
+					    client.write(commands.NEW_LINE);
+					    client.write(commands.NEW_LINE);
+					    client.write(commands.JUST_CENTER);
+					    client.write(date);
 					    client.write(commands.NEW_LINE);
 
 							// ID order
@@ -61,8 +72,16 @@ function setupPrinter(_host, _port, _type, _owner, _location) {
 							client.write(commands.TEXT_NORMAL);
 						} else {
 
+						    client.write(commands.TEXT_NORMAL);
 							client.write(_owner);
 							client.write(commands.NEW_LINE);
+						    client.write(date);
+						    client.write(commands.NEW_LINE);
+						    					
+							client.write(commands.TEXT_DOUBLE_WIDTH);
+							client.write(commands.BOLD_ON);
+							client.write(commands.UNDERL_1_ON);
+
 							client.write(commands.NEW_LINE);
 
 							// kitchen text
@@ -123,9 +142,6 @@ function setupPrinter(_host, _port, _type, _owner, _location) {
 							console.log(text_kitchen);
 
 							// order ID
-							client.write(commands.TEXT_DOUBLE_WIDTH);
-							client.write(commands.BOLD_ON);
-							client.write(commands.UNDERL_1_ON);
 							client.write('ORDINE ' + idOrder);
 						    client.write(commands.NEW_LINE);
 						    client.write(commands.NEW_LINE);

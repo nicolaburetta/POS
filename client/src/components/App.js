@@ -29,6 +29,10 @@ class App extends Component {
   }
 
   sendOrder() {
+  	const payload = {
+  		order: this.props.order,
+  		cash_register: parseInt(this.state.cash_register, 10)
+  	};
     console.log(this.props.order);
     if (this.props.order.length > 0) {
       fetch(`/insert-order`, {
@@ -37,10 +41,7 @@ class App extends Component {
         'Content-Type': 'application/json'
         },
         method: 'post',
-        body: {
-          order: JSON.stringify(this.props.order),
-          cash_register: this.state.cash_register
-        }
+        body: JSON.stringify(payload)
       })
         .then(res => res.json())
         .then(res => {

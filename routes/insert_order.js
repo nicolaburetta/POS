@@ -10,7 +10,6 @@ const setupPrinter = require('../client/src/models/printer_model');
 router.post('/', function(req, res, next) {
   const order = req.body.order;
   const printer_index = req.body.cash_register;
-  console.log(order);
 
   if (typeof order != 'undefined') {
 
@@ -52,9 +51,9 @@ router.post('/', function(req, res, next) {
         }
 
         // create different data structures for the kitchen
-        if (order[i].type_id === 5) kitchen_data_1.push(order[i]);
-        else if (order[i].type_id === 6) kitchen_data_2.push(order[i]);
-        else if (order[i].type_id === 7) kitchen_data_3.push(order[i]);
+        if (order[i].type_id === 1) kitchen_data_1.push(order[i]);
+        else if (order[i].type_id === 2) kitchen_data_2.push(order[i]);
+        else if (order[i].type_id === 3) kitchen_data_3.push(order[i]);
         console.log('DATA 1: ',kitchen_data_1);
         console.log('DATA 2: ',kitchen_data_2);
         console.log('DATA 3: ',kitchen_data_3);
@@ -66,9 +65,13 @@ router.post('/', function(req, res, next) {
         if (err) throw err;
 
         try {
-          var printer_cash_register = setupPrinter(printers_ip[printer_index], 9100, 80, 'PROGETTO GIOVANI SARCEDO', 'Parco Anfiteatro, via T. Vecellio');
-          var printer_1 = setupPrinter(printers_ip[1], 9100, 80, 'BRUSCHETTA', '');
-          var printer_2 = setupPrinter(printers_ip[2], 9100, 80, 'PANINO', '');
+          var printer_cash_register = setupPrinter(printers_ip[printer_index],
+            9100,
+            80,
+            'SARCEDO SUMMER FEST\n\nProgetto Giovani Sarcedo',
+            'Parco Anfiteatro, via T. Vecellio\n\nCassa ' + printer_index);
+          var printer_1 = setupPrinter(printers_ip[2], 9100, 80, 'BRUSCHETTA', '');
+          var printer_2 = setupPrinter(printers_ip[3], 9100, 80, 'PANINO', '');
           var printer_3 = setupPrinter(printers_ip[4], 9100, 80, 'FRITTO', '');
           printer_cash_register.print(order, id_order, false);
           if (kitchen_data_1.length > 0) { printer_1.print(kitchen_data_1, id_order, true); }

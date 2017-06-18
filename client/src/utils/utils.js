@@ -69,6 +69,42 @@ function isOrderItemArray(array) {
   return check;
 }
 
+function getDate() {
+  var date = new Date();
+
+  var day = date.getDay();
+  var num_day = date.getDate();
+  var month = date.getMonth();
+  var year = date.getFullYear();
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+
+  if (day === 0) day = 'Dom';
+  else if (day === 1) day = 'Lun';
+  else if (day === 2) day = 'Mar';
+  else if (day === 3) day = 'Mer';
+  else if (day === 4) day = 'Gio';
+  else if (day === 5) day = 'Ven';
+  else if (day === 6) day = 'Sab';
+
+  if (month === 0) month = '1';
+  else if (month === 1) month = '2';
+  else if (month === 2) month = '3';
+  else if (month === 3) month = '4';
+  else if (month === 4) month = '5';
+  else if (month === 5) month = '6';
+  else if (month === 6) month = '7';
+  else if (month === 7) month = '8';
+  else if (month === 8) month = '9';
+  else if (month === 9) month = '10';
+  else if (month === 10) month = '11';
+  else if (month === 11) month = '12';
+
+  if (minutes < 10) minutes = '0' + minutes;
+
+  return day + ' ' + num_day + '-' + month + '-' + year + ' ' + hours + ':' + minutes;
+}
+
 // return the ready-to-print number
 function formatNumber(number) {
 	var n = number.toString();
@@ -97,6 +133,7 @@ module.exports = {
   isUndefined: isUndefined,
   isOrderItem: isOrderItem,
   isOrderItemArray: isOrderItemArray,
+  getDate: getDate,
   formatNumber: formatNumber,
   isStringArray: isStringArray,
   isIpAddress: isIpAddress,
