@@ -7,8 +7,9 @@ export default class FirstPage extends Component {
     super(props);
 
     this.submit = this.submit.bind(this);
-    this.changeValue = this.changeValue.bind(this);
-    this.state = { options: [], selected: defaultValue };
+    this.changeCashValue = this.changeCashValue.bind(this);
+    this.changeTypeValue = this.changeTypeValue.bind(this);
+    this.state = { options: [], cashSelected: defaultValue, typeSelected: defaultValue };
   }
 
   componentDidMount() {
@@ -17,13 +18,21 @@ export default class FirstPage extends Component {
       .then(addresses => this.setState({ options: addresses }));
   }
 
-  changeValue(event) {
-    this.setState({ selected: event.target.value });
+  changeCashValue(event) {
+    this.setState({ cashSelected: event.target.value });
+  }
+
+  changeTypeValue(event) {
+    this.setState({ typeSelected: event.target.value });
   }
 
   submit(event) {
-    if (this.state.selected !== defaultValue) {
-      this.props.changeIndex(this.state.selected);
+    if (this.state.cashSelected !== defaultValue
+      && this.state.typeSelected !== defaultValue) {
+      this.props.changeAppInfo({
+        cash_register: this.state.cashSelected,
+        appType: this.state.typeSelected
+      });
     }
   }
 
@@ -44,11 +53,20 @@ export default class FirstPage extends Component {
       <div className="col-md-5">
         <form className="form-inline">
           <select
-            onChange={this.changeValue}
+            onChange={this.changeCashValue}
             className="form-control input-lg margin-top-10 margin-right-10"
             id="inlineFormCustomSelect">
             <option defaultValue value={defaultValue}>Scegli la postazione...</option>
             { this.renderOptions() }
+          </select>
+
+          <select
+            onChange={this.changeTypeValue}
+            className="form-control input-lg margin-top-10 margin-right-10"
+            id="inlineFormCustomSelect">
+            <option defaultValue value={defaultValue}>Cucina o stand?</option>
+            <option value="cucina">Cucina</option>
+            <option value="stand">Stand</option>
           </select>
 
           <button
