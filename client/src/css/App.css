@@ -27,6 +27,19 @@ textarea {
   resize: none;
 }
 
+#appbody {
+  position: relative;
+}
+
+#appbody > div {
+  width: 49.5%;
+  display: inline-grid;
+}
+
+#appbody > :first-child {
+  margin-right: 1%;
+}
+
 /* CURSOR */
 .cursor-pointer {
   cursor: pointer;
@@ -360,16 +373,19 @@ textarea {
 }
 
 /* Panel dishes list */
-#dishes-list > .panel > .panel-heading > h2.panel-title {
+#dishes-list > .panel > .panel-heading > h2.panel-title,
+#drinks-list > .panel > .panel-heading > h2.panel-title {
   font-size: 24px;
 }
 
-#dishes-list > .panel > .panel-collapse > ul > li > h4 {
+#dishes-list > .panel > .panel-collapse > ul > li > h4,
+#drinks-list > .panel > .panel-collapse > ul > li > h4 {
   margin-top: 5px;
   margin-bottom: 5px;
 }
 
-#dishes-list > .panel > .panel-collapse > ul > li > h4 > button {
+#dishes-list > .panel > .panel-collapse > ul > li > h4 > button,
+#drinks-list > .panel > .panel-collapse > ul > li > h4 > button {
   margin-left: 10px;
 }
 

@@ -31,33 +31,34 @@ router.post('/', function(req, res, next) {
       var kitchen_data_3 = [];
       var quantities = [];
       for (i in order) {
+        if (order[i].type_id < 10) {
         // create data structure for the query
-        var found = false;
-        var foundIndex = 0;
-        var index = 0;
-        while (!found && index < data.length) {
-          found = data[index].indexOf(order[i].id) == 1;
-          index++;
-        }
-        if (!found) {
-          data.push([
-            id_order,
-            order[i].id,
-            order[i].quantity
-          ]);
-        } else {
-          index--;
-          (data[index])[2] += order[i].quantity;
-        }
+          var found = false;
+          var foundIndex = 0;
+          var index = 0;
+          while (!found && index < data.length) {
+            found = data[index].indexOf(order[i].id) == 1;
+            index++;
+          }
+          if (!found) {
+            data.push([
+              id_order,
+              order[i].id,
+              order[i].quantity
+            ]);
+          } else {
+            index--;
+            (data[index])[2] += order[i].quantity;
+          }
 
-        // create different data structures for the kitchen
-        if (order[i].type_id === 1) kitchen_data_1.push(order[i]);
-        else if (order[i].type_id === 2) kitchen_data_2.push(order[i]);
-        else if (order[i].type_id === 3) kitchen_data_3.push(order[i]);
-        console.log('DATA 1: ',kitchen_data_1);
-        console.log('DATA 2: ',kitchen_data_2);
-        console.log('DATA 3: ',kitchen_data_3);
-
+          // create different data structures for the kitchen
+          if (order[i].type_id === 1) kitchen_data_1.push(order[i]);
+          else if (order[i].type_id === 2) kitchen_data_2.push(order[i]);
+          else if (order[i].type_id === 3) kitchen_data_3.push(order[i]);
+          console.log('DATA 1: ',kitchen_data_1);
+          console.log('DATA 2: ',kitchen_data_2);
+          console.log('DATA 3: ',kitchen_data_3);
+        }
       }
       console.log('Query insert data: ', data);
 

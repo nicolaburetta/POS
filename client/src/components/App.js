@@ -62,7 +62,7 @@ class App extends Component {
     if (this.state.cash_register == null) return ( <FirstPage changeAppInfo={this.changeAppInfo} /> );
     const idmodal = 'modify-order';
 
-    if (this.state.appType == 'cucina') {
+    if (this.state.appType === 'cucina') {
       return (
         <div>
           <Modal idModal={idmodal} />
@@ -77,8 +77,15 @@ class App extends Component {
                   onClick={() => this.sendOrder()}>Conferma</button>
               </div>
             </div>
-            <div className="overflow-hidden padding-right-5">
-              <DishesList />
+            <div className="overflow-hidden padding-right-5" id="appbody">
+              <div >
+	            <h1 className="margin-top-0">Cucina</h1>
+	            <DishesList type="cucina" />
+	          </div>
+	          <div>
+	          	<h1 className="margin-top-0">Stand</h1>
+	          	<DishesList type="stand" />
+	          </div>
             </div>
             <div className="mylabel-container quantity-label padding-0">
               <QuantityLabel />
@@ -89,7 +96,7 @@ class App extends Component {
           </div>
         </div>
       );
-    } else if (this.state.appType == 'stand') {
+    } else if (this.state.appType === 'stand') {
       return (null);
     }
   }
